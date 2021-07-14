@@ -20,7 +20,7 @@ if (term.trim()) {
     .then(res => res.json())
     .then(data => {
         console.log(data);
-        resultHeading.innerHTML = `<h2>Search results for '${term}':</h2>`
+        resultHeading.innerHTML = `<h2>Search results for '${term}': </h2>`
 
         if(data.meals === null) {
             resultHeading.innerHTML = `<p>There are no search results.  Try again!</p>`
@@ -53,6 +53,7 @@ function getMealById(mealID) {
     .then(res => res.json())
     .then(data => {
         const meal = (data.meals[0]);
+        console.log(mealID + "getting meal id");
 
         addMealToDOM(meal);
     });
@@ -64,7 +65,9 @@ function addMealToDOM(meal) {
 
     for(let i = 1; i <= 20; i++) {
         if(meal[`strIngredient${i}`]) {
-            ingredients.push(`${meal[`strIngredient${i}`]} - ${meal[`strMeasure${i}`]}`);
+            ingredients.push(
+                `${meal[`strIngredient${i}`]} - ${meal[`strMeasure${i}`]}`
+                );
         } else {
             break;
         }
@@ -80,7 +83,7 @@ function addMealToDOM(meal) {
             </div>
         
             <div class="main">
-                <p>${meal.strinstructions}</p>
+                <p>${meal.strInstructions}</p>
                 <h2>Ingredients</h2>
                 <ul>
                     ${ingredients.map(ing => `<li>${ing}</li>`).join('')}
