@@ -19,13 +19,14 @@ if (term.trim()) {
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${term}`)
     .then(res => res.json())
     .then(data => {
-        console.log(data);
+        //console.log(data);
         resultHeading.innerHTML = `<h2>Search results for '${term}': </h2>`
 
         if(data.meals === null) {
-            resultHeading.innerHTML = `<p>There are no search results.  Try again!</p>`
+            resultHeading.innerHTML = `<p>There are no search results.  Try again!</p>`;
         } else {
-            mealsEl.innerHTML = data.meals.map(
+            mealsEl.innerHTML = data.meals
+            .map(
                 meal => `
                 <div class="meal">
                     <img src="${meal.strMealThumb}" alt="${meal.strMeal}" />
@@ -49,9 +50,10 @@ console.log(term);
 
 //Fetch meal by ID
 function getMealById(mealID) {
-    fetch(`www.themealdb.com/api/json/v1/1/lookup.php?i=${mealID}`)
+    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealID}`)
     .then(res => res.json())
     .then(data => {
+        console.log(data)
         const meal = data.meals[0];
 
         addMealToDOM(meal);
